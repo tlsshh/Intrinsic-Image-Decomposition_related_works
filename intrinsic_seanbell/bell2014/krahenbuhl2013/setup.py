@@ -25,6 +25,7 @@ setup(
             numpy.get_include(),
             "include",
             "/usr/include/eigen3",
+            "/homes/jl3752/faster/include/eigen-3.3.9"
         ],
         language="c++",
     )),

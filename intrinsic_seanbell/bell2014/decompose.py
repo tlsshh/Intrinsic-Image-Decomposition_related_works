@@ -3,6 +3,7 @@
 import os
 import sys
 import argparse
+import numpy as np
 
 if __name__ == '__main__' and __package__ is None:
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -73,6 +74,9 @@ if __name__ == '__main__':
         '--show-labels', action='store_true',
         help="if specified, also output labels", required=False)
 
+    parser.add_argument(
+        '--save-raw', action='store_true',
+        help="if specified, also save raw predictions (numpy files)", required=False)
     if len(sys.argv) <= 1:
         parser.print_help()
         sys.exit(1)
@@ -127,6 +131,11 @@ if __name__ == '__main__':
     # save output
     image_util.save(r_filename, r, mask_nz=input.mask_nz, rescale=True, srgb=sRGB)
     image_util.save(s_filename, s, mask_nz=input.mask_nz, rescale=True, srgb=sRGB)
+    if args.save_raw:
+        np.save(r_filename.rpartition('.')[0]+".npy", r)
+        print "save predicted reflectance: " + r_filename.rpartition('.')[0]+".npy"
+        np.save(s_filename.rpartition('.')[0]+".npy", s)
+        print "save predicted shading: " + s_filename.rpartition('.')[0]+".npy"
     if args.show_labels:
         labels_vis = decomposition.get_labels_visualization()
         r_path, r_ext = os.path.splitext(r_filename)
