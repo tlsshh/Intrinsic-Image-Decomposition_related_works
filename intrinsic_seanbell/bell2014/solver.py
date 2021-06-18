@@ -190,6 +190,9 @@ class IntrinsicSolver(object):
                 print('Warning: empty linear system (%s, nlabels=%s)' % (
                     self.basename, self.cur_intensities.shape[0]))
             return
+        # if A_shape == (1, 2):
+        #     print('Warning: error linear system with A_shape %s' % (A_shape, ))
+        #     return
 
         if self.params.logging:
             print('solving linear system...')
