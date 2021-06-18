@@ -1,0 +1,11 @@
+im=im2double(imread('a.png'));
+im=crossBF(im);
+im=refine(im);
+[m n d]=size(im);
+nrgb=NRGBMap(im);
+B=mean(im,3);
+R=zeros(size(im));
+lambda=exp(-sqrt((nrgb(:,:,1)-0.41).^2+(nrgb(:,:,2)-0.41).^2+(nrgb(:,:,3)-0.19).^2)/0.25);
+lambda=lambda.*(1-B.^0.5);
+nrgb=lambda(:,:,[1 1 1])/3+(1-lambda(:,:,[1 1 1])).*nrgb;
+imwrite(nrgb.*B(:,:,[1 1 1])*3,'a_refined.png');
