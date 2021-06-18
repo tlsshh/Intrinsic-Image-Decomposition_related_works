@@ -1,3 +1,5 @@
+.idea/
+
 **/nbproject/private/
 **/build/Release/
 **/dist/Release/
